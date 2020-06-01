@@ -6,14 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'rancher-home',
-      port: 3306,
-      username: 'nestjs',
-      password: 'passwordAE#$%3',
+      type: 'mongodb',
+      url: 'mongodb://rancher-home:27017',
       database: 'nestjs',
-      autoLoadEntities: true,
-      synchronize: true,
+      entities: [
+        __dirname + '/**/*.entity{.ts,.js}',
+      ],
+      ssl: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true
     }),
     CoreModule, 
     UserModule
