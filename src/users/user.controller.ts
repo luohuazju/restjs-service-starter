@@ -1,18 +1,18 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, Delete } from '@nestjs/common';
 import { Roles } from '../common/decorators/roles.decorator';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { ParseIntPipe } from '../common/pipes/parse-int.pipe';
 import { UserService } from './user.service';
 import { UserDTO } from './user.dto';
-import { User } from './user.model';
+import { User } from './user.entity';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@Body() dto: UserDTO) {
-    this.userService.create(dto);
+  async create(@Body() dto: UserDTO): Promise<User> {
+    return this.userService.create(dto);
   }
 
   @Get()
@@ -21,10 +21,12 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(
-    @Param('id', new ParseIntPipe())
-    id: number,
-  ) {
-    // get by ID logic
+  findOne(@Param('id')id: string): Promise<User> {
+    return this.userService.findOne(id);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<void> {
+    return this.userService.remove(id);
   }
 }
