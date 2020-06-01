@@ -25,6 +25,11 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
+  @Get('/username/:username')
+  findOneByUserName(@Param('username') username: string): Promise<User> {
+    return this.userService.findOneByUserName(username);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.userService.remove(id);

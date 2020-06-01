@@ -14,9 +14,9 @@ export class UserService {
   create(dto: UserDTO): Promise<User> {
     const user = new User();
     user.age = dto.age;
-    user.name = dto.name;
+    user.username = dto.username;
+    user.password = dto.password;
     user.language = dto.language;
-    
     return this.userRepository.save(user);
   }
 
@@ -26,6 +26,10 @@ export class UserService {
 
   findOne(id: string): Promise<User> {
     return this.userRepository.findOne(id);
+  }
+
+  findOneByUserName(username: string): Promise<User> {
+    return this.userRepository.findOne({ username: username });
   }
 
   async remove(id: string): Promise<void> {

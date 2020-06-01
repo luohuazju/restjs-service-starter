@@ -6,7 +6,10 @@ export class User {
     id: ObjectID;
 
     @Column()
-    name: string;
+    username: string;
+
+    @Column()
+    password: string;
 
     @Column()
     age: number;
