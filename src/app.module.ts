@@ -7,12 +7,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mongodb',
-      url: 'mongodb://rancher-home:27017',
+      url: 'mongodb://rancher-home:27017/nestjs',
       database: 'nestjs',
       entities: [
         __dirname + '/**/*.entity{.ts,.js}',
       ],
-      ssl: true,
+      ssl: false,
       useUnifiedTopology: true,
       useNewUrlParser: true
     }),
